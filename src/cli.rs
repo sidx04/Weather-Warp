@@ -57,7 +57,7 @@ use serde::Deserialize;
 
 // struct to deserialise JSON response from openweather API
 #[derive(Deserialize, Debug)]
-struct WeatherResponse {
+pub struct WeatherResponse {
     weather: Vec<Weather>,
     main: Main,
     wind: Wind,
@@ -106,13 +106,14 @@ pub fn display(res: &WeatherResponse) -> String {
     // extract weather information from response
     let description = &res.weather[0].description;
     let temp = &res.main.temp;
+    let feels_like = &res.main.feels_like;
     let humidity = &res.main.humidity;
     let pressure = &res.main.pressure;
     let wind_speed = &res.wind.speed;
 
     let weather_text = format!(
         "Weather in {}: {}, {}
-        > Temperature: {:.1}°C
+        > Temperature: {:.1}°C      [Feels like: {:.1}°C]
         > Humidity: {:.1}%
         > Pressure: {:.2}hPa
         > Wind Speed: {:.1} m/s",
@@ -120,6 +121,7 @@ pub fn display(res: &WeatherResponse) -> String {
         description,
         generate_emote(*temp),
         temp,
+        feels_like,
         humidity,
         pressure,
         wind_speed
