@@ -32,12 +32,3 @@ struct Parameters {
 struct Wind {
     speed: f64,
 }
-
-// function to get weather information from API
-fn get_weather_info(
-    city: &str,
-    country_code: &str,
-    api_key: &str,
-) -> Result<WeatherResponse, reqwest::Error> {
-    let url = ""
-}
