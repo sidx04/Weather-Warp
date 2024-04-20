@@ -10,7 +10,7 @@ serde = { version = "*", features = ["derive"] }
 serde_json = { version = "*" }
 reqwest = { version = "*", features = ["blocking", "json"] }
 colored = { version = "*" }
+dotenv = "0.15.0"
 
 [dev-dependencies]
 mockito = { version = "*" }
-load-dotenv = "0.1.2"
