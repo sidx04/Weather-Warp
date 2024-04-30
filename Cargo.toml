@@ -11,6 +11,7 @@ serde_json = { version = "*" }
 reqwest = { version = "*", features = ["blocking", "json"] }
 colored = { version = "*" }
 dotenv = "0.15.0"
+clap = { version = "4.4.6", features = ["derive"] }
 
 [dev-dependencies]
 mockito = { version = "*" }
