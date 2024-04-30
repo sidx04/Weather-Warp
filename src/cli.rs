@@ -89,11 +89,12 @@ struct Wind {
 pub fn get_weather_info(
     city: &str,
     country_code: &str,
+    api_url: &str,
     api_key: &str,
 ) -> Result<WeatherResponse, reqwest::Error> {
     let url = format!(
-        "https://api.openweathermap.org/data/2.5/weather?q={},{}&units=metric&appid={}",
-        city, country_code, api_key
+        "{}/?q={},{}&units=metric&appid={}",
+        api_url, city, country_code, api_key
     );
     let response = reqwest::blocking::get(&url).unwrap();
     let response_json = response.json::<WeatherResponse>().unwrap();

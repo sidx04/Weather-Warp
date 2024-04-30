@@ -10,8 +10,9 @@ fn main() {
     dotenv().ok();
 
     let api_key = env::var("OPENWEATHER_API_KEY").unwrap();
+    let api_url = env::var("OPENWEATHER_API_URL").unwrap();
 
-    println!("{}", "Welcome to Weather Warp".bright_cyan());
+    println!("{}", "Welcome to Weather Warp.".bright_cyan());
     println!("Enter your city: ");
     let mut city = String::new();
     io::stdin()
@@ -26,7 +27,7 @@ fn main() {
         .expect("Failed to read input...");
     let country = country.trim();
 
-    match get_weather_info(&city, &country, &api_key) {
+    match get_weather_info(&city, &country, &api_url, &api_key) {
         Ok(response) => {
             display(&response);
         }
