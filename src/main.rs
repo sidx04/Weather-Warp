@@ -1,14 +1,14 @@
-use colored::*;
-use configure::configure;
 use dotenv::dotenv;
-use std::env;
+use std::fs;
+
+use configure::DefaultConfig;
 
 mod cli;
-use crate::cli::{display, get_weather_info};
 
 mod args;
 
 mod configure;
+
 fn main() {
     dotenv().ok();
 
@@ -18,37 +18,22 @@ fn main() {
     let command = match args.command {
         Some(c) => c,
         None => {
-            let default_city = Some(String::from("Kolkata"));
-            let default_country = Some(String::from("IND"));
+            let file = fs::read_to_string("./default.json").expect("Unable to read file...");
+            let default_data: DefaultConfig = serde_json::from_str(&file).unwrap();
+            println!("{:#?}", default_data);
             args::Command::Weather {
-                city: default_city,
-                country: default_country,
+                city: Some(default_data.city.to_string()),
+                country: Some(default_data.country.to_string()),
             }
         }
     };
 
     match command {
         args::Command::Weather { city, country } => {
-            let api_key = env::var("OPENWEATHER_API_KEY").unwrap();
-            let api_url = env::var("OPENWEATHER_API_URL").unwrap();
-
-            println!("{}", "Welcome to Weather Warp.".bright_cyan());
-
-            // Extract the city and country from the Option
-            let city = city.unwrap_or_else(|| String::from("Kolkata"));
-            let country = country.unwrap_or_else(|| String::from("IND"));
-
-            match get_weather_info(&city, &country, &api_url, &api_key) {
-                Ok(response) => {
-                    display(&response);
-                }
-                Err(e) => {
-                    eprintln!("{}", e);
-                }
-            };
+            cli::run(city, country);
         }
         args::Command::Config { city, country } => {
-            configure(city.unwrap(), country.unwrap());
+            let _config_string = configure::config(city.unwrap(), country.unwrap());
         }
     }
 }

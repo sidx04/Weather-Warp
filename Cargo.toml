@@ -2,6 +2,7 @@
 name = "weather-cli"
 version = "0.1.0"
 edition = "2021"
+author = "sidx04"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -12,6 +13,7 @@ reqwest = { version = "*", features = ["blocking", "json"] }
 colored = { version = "*" }
 dotenv = "0.15.0"
 clap = { version = "4.4.6", features = ["derive"] }
+config = { version = "0.14.0", features = ["ini", "json"] }
 
 [dev-dependencies]
 mockito = { version = "*" }

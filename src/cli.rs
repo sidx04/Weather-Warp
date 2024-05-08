@@ -1,6 +1,7 @@
 use colored::*;
 use core::result::Result;
 use serde::Deserialize;
+use std::env;
 
 /// all the structs are made corresponding to the JSON response
 /// JSON response:
@@ -154,4 +155,24 @@ pub fn generate_emote(temp: f64) -> &'static str {
         t if t < 30.0 => "🌤️",
         _ => "🔥",
     }
+}
+
+pub fn run(city: Option<String>, country: Option<String>) {
+    let api_key = env::var("OPENWEATHER_API_KEY").unwrap();
+    let api_url = env::var("OPENWEATHER_API_URL").unwrap();
+
+    println!("{}", "Welcome to Weather Warp.".bright_cyan());
+
+    // Extract the city and country from the Option
+    let city = city.unwrap();
+    let country = country.unwrap();
+
+    match get_weather_info(&city, &country, &api_url, &api_key) {
+        Ok(response) => {
+            display(&response);
+        }
+        Err(e) => {
+            eprintln!("{}", e);
+        }
+    };
 }
