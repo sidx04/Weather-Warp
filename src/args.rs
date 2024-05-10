@@ -12,13 +12,17 @@ pub enum Command {
     /// Get weather information
     Weather {
         /// City name
-        #[clap(short = 'c', long = "city", help = "Set the city")]
+        #[clap(
+            short = 'c',
+            long = "city",
+            help = "Set the city (eg: Delhi, Kochi, Chicago)"
+        )]
         city: Option<String>,
         /// Country code
         #[clap(
             short = 'C',
             long = "country",
-            help = "Set the country code (eg: IND for India)"
+            help = "Set the country code (eg: IND for India, US for United States)"
         )]
         country: Option<String>,
     },

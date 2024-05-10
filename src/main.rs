@@ -1,13 +1,15 @@
 use dotenv::dotenv;
+use serde::{Deserialize, Serialize};
 use std::fs;
-
-use configure::DefaultConfig;
-
-mod cli;
-
 mod args;
-
+mod cli;
 mod configure;
+
+#[derive(Debug, Deserialize, Serialize)]
+struct DefaultConfig {
+    city: String,
+    country: String,
+}
 
 fn main() {
     dotenv().ok();
