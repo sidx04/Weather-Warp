@@ -74,8 +74,6 @@ pub fn config(city: String, country: String) {
     let serialized_config = serialized_config.trim_end_matches('\n').to_string();
     json.write_all(serialized_config.as_bytes()).unwrap();
 
-    println!("{:#?}", serialized_config);
-
     msg = format!("Config set.");
     println!("{}", msg.bright_blue());
 }

@@ -22,7 +22,6 @@ fn main() {
         None => {
             let file = fs::read_to_string("./default.json").expect("Unable to read file...");
             let default_data: DefaultConfig = serde_json::from_str(&file).unwrap();
-            println!("{:#?}", default_data);
             args::Command::Weather {
                 city: Some(default_data.city.to_string()),
                 country: Some(default_data.country.to_string()),
